@@ -5,7 +5,7 @@
     margin: 0;
     padding: 0;
     font-family: montserrat;
-    background: linear-gradient(120deg, #2980b9, #8e44ad);
+    background: linear-gradient(120deg, #283655 ,#1e1f26);
     height: 100vh;
     overflow: hidden;
     }
@@ -111,25 +111,31 @@ form .form-group {
 <body>
   <div class="container">
     <h1>Sign Up</h1>
-    <form action="/register" method="post">
+    <form action="register" method="post">
       <div class="form-group">
-        <input type="text" class="form-input" placeholder="First name" required>
+        <input type="text" class="form-input" placeholder="First name" name="first_name" required>
         <span></span>
       </div>
       <div class="form-group">
-        <input type="text" class="form-input" placeholder="Last name" required>
+        <input type="text" class="form-input" name="last_name" placeholder="Last name" required>
+        <span></span>
+      </div>
+
+      <div class="form-group">
+        <input type="text" class="form-input" placeholder="username" name="username" required>
+        <span></span>
+      </div>
+
+      <div class="form-group">
+        <input type="email" class="form-input" placeholder="Email" name="email" required>
         <span></span>
       </div>
       <div class="form-group">
-        <input type="email" class="form-input" placeholder="Email" required>
+        <input type="password" class="form-input" name="pwd" placeholder="Password" required>
         <span></span>
       </div>
       <div class="form-group">
-        <input type="password" class="form-input" placeholder="Password" required>
-        <span></span>
-      </div>
-      <div class="form-group">
-        <input type="password" class="form-input" placeholder="Confirm Password" required>
+        <input type="password" class="form-input" name="confirm_pwd" placeholder="Confirm Password" required>
         <span></span>
       </div>
       <button type="submit" class="form-button">Sign Up</button>

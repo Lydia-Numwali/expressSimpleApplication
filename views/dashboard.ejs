@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <main>
+        <h1> Welcome to your Dashboard</h1>
+
+        <form action="/update" method="post">
+
+            <img src='<%= image%>' style="border-radius:50%;text-align: center;" width="100" height="100"
+                alt="profile picture" />
+                <div class="input__container">
+                    <label for="pic">Update your profile picture</label>
+                    <input type="file" name="profile_pic" id="pic">
+                </div>
+
+            <div class="input__container">
+                <label for="email">Update your email:</label>
+                <input type="email" name="email" id="email" value='<%= email%>'
+               readonly  style="cursor:not-allowed">
+            </div>
+            <div class="input__container">
+                <label for="uname">Update your username:</label>
+                <input type="text" name="uname" id="uname" value='<%= uname%>'>
+            </div>
+            <div class="input__container">
+                <label for="pwd">Update your password:</label>
+                <input type="password" name="pwd" id="pwd" value='<%= password%>'>
+            </div>
+            <div class="input__container">
+                <input type="submit" value="update">
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>
