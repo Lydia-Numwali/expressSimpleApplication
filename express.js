@@ -34,11 +34,15 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.set("view engine", "ejs");
+
 app.get('/', (req,res)=>{
-    res.render("signup.ejs");
+    res.render("signup.ejs");   
 })
 
 
+app.get('/',(req,res)=>{
+  res.render('form.ejs')
+}); 
 app.post('/register',upload.single('profile_pic'),(req,res,next)=>{
     console.log(req.body);
 
@@ -52,7 +56,7 @@ app.post('/register',upload.single('profile_pic'),(req,res,next)=>{
 connection.query(`INSERT INTO user_table (first_name,last_name,user_name,email,password,image) VALUES (?,?,?,?,?,?)`,[first_name,last_name,user_name,email,pwd,image],(err,result)=>{
         if(err) console.log('error found:',err);
         console.log(result);
-        //res.render("dashboard.ejs",{email,pwd,username,image})
+    
 })
 connection.query(
   `SELECT image FROM user_table WHERE email = ?`,
@@ -60,17 +64,46 @@ connection.query(
   async (err, result) => {
     if (err) console.log("err found:", err);
     console.log(result);
-    // console.log(result[0].image.toString());
+  
 
     image = path.join("images", "uploads", result[0].image.toString());
 
     console.log(image);
     res.render("dashboard.ejs", { pwd, user_name, email, image });
+    res.end();
   }
 );
   })
   
- 
+
+  app.get('/login.html',(req,res)=>{
+    res.render('form')
+});
+app.post('/login',(req,res)=>{
+console.log(req.body);
+let email = req.body.email;
+let pwd = req.body.pwd
+let user_name = req.body.username
+let image;
+
+connection.query(
+  `SELECT image FROM user_table WHERE user_name = ?`,
+  [user_name],
+  async (err, result) => {
+    if (err) console.log("err found:", err);
+    console.log(result);
+  
+
+    image = path.join("images", "uploads", result[0].image.toString());
+
+    console.log(image);
+res.render("dashboard.ejs", { pwd, user_name, email, image });
+res.end();
+  });
+});
+
+
+
 app.listen(3000,()=>{
 console.log('Server running on port 3000');
 })
