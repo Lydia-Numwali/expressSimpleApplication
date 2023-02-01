@@ -12,9 +12,9 @@
     <main>
         <h1> Welcome to your Dashboard</h1>
 
-        <form action="/update" method="post">
+        <form action="update" method="post">
 
-            <img src='<%= image%>' style="border-radius:50%;text-align: center;" width="100" height="100"
+            <img src= '<%= image%>' style="border-radius:50%;text-align: center;" width="100" height="100"
                 alt="profile picture" />
                 <div class="input__container">
                     <label for="pic">Update your profile picture</label>
@@ -23,16 +23,16 @@
 
             <div class="input__container">
                 <label for="email">Update your email:</label>
-                <input type="email" name="email" id="email" value='<%= email%>'
+                <input type="email" name="email" id="email" value='<%=email%>'
                readonly  style="cursor:not-allowed">
             </div>
             <div class="input__container">
                 <label for="uname">Update your username:</label>
-                <input type="text" name="uname" id="uname" value='<%= uname%>'>
+                <input type="text" name="uname" id="uname" value='<%=user_name%>'>
             </div>
             <div class="input__container">
                 <label for="pwd">Update your password:</label>
-                <input type="password" name="pwd" id="pwd" value='<%= password%>'>
+                <input type="password" name="pwd" id="pwd" value='<%= pwd%>'>
             </div>
             <div class="input__container">
                 <input type="submit" value="update">

@@ -111,31 +111,36 @@ form .form-group {
 <body>
   <div class="container">
     <h1>Sign Up</h1>
-    <form action="register" method="post">
+    <form action="register" method="post" enctype="multipart/form-data">
       <div class="form-group">
-        <input type="text" class="form-input" placeholder="First name" name="first_name" required>
+        <input type="text" class="form-input" placeholder="First name" name="first_name">
         <span></span>
       </div>
       <div class="form-group">
-        <input type="text" class="form-input" name="last_name" placeholder="Last name" required>
-        <span></span>
-      </div>
-
-      <div class="form-group">
-        <input type="text" class="form-input" placeholder="username" name="username" required>
+        <input type="text" class="form-input" name="last_name" placeholder="Last name">
         <span></span>
       </div>
 
       <div class="form-group">
-        <input type="email" class="form-input" placeholder="Email" name="email" required>
+        <input type="text" class="form-input" placeholder="username" name="username">
+        <span></span>
+      </div>
+
+      <div class="form-group">
+        <input type="email" class="form-input" placeholder="Email" name="email">
         <span></span>
       </div>
       <div class="form-group">
-        <input type="password" class="form-input" name="pwd" placeholder="Password" required>
+        <input type="password" class="form-input" name="pwd" placeholder="Password">
         <span></span>
       </div>
       <div class="form-group">
-        <input type="password" class="form-input" name="confirm_pwd" placeholder="Confirm Password" required>
+        <input type="password" class="form-input" name="confirm_pwd" placeholder="Confirm Password">
+        <span></span>
+      </div>
+
+      <div class="form-group">
+        <input type="file" class="form-input" name="profile_pic">
         <span></span>
       </div>
       <button type="submit" class="form-button">Sign Up</button>
