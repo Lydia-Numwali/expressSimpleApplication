@@ -4,7 +4,7 @@ const ejs=require('ejs');
 const bodyParser=require('body-parser');
 const app=express();
 const mysql = require('mysql');
-
+const PORT = 8080;
 const multer = require("multer");
 const { diskStorage } = require("multer");
 
@@ -38,11 +38,6 @@ app.set("view engine", "ejs");
 app.get('/', (req,res)=>{
     res.render("signup.ejs");   
 })
-
-
-app.get('/',(req,res)=>{
-  res.render('form.ejs')
-}); 
 app.post('/register',upload.single('profile_pic'),(req,res,next)=>{
     console.log(req.body);
 
@@ -53,23 +48,24 @@ app.post('/register',upload.single('profile_pic'),(req,res,next)=>{
     let user_name = req.body.username
     let image=req.file.filename;
 
-connection.query(`INSERT INTO user_table (first_name,last_name,user_name,email,password,image) VALUES (?,?,?,?,?,?)`,[first_name,last_name,user_name,email,pwd,image],(err,result)=>{
+connection.query(`INSERT INTO user_login (first_name,last_name,user_name,email,password,image) VALUES (?,?,?,?,?,?)`,[first_name,last_name,user_name,email,pwd,image],(err,result)=>{
         if(err) console.log('error found:',err);
         console.log(result);
     
 })
 connection.query(
-  `SELECT image FROM user_table WHERE email = ?`,
+  `SELECT * FROM user_login WHERE email = ?`,
   [email],
   async (err, result) => {
     if (err) console.log("err found:", err);
     console.log(result);
   
+    let id = result[0].id
 
     image = path.join("images", "uploads", result[0].image.toString());
 
     console.log(image);
-    res.render("dashboard.ejs", { pwd, user_name, email, image });
+    res.render("dashboard.ejs", { pwd, user_name, email,id, image });
     res.end();
   }
 );
@@ -82,30 +78,68 @@ connection.query(
 app.post('/login',(req,res)=>{
 console.log(req.body);
 let email = req.body.email;
-let pwd = req.body.pwd
+let pwd = req.body.password
 let user_name = req.body.username
 let image;
 
 connection.query(
-  `SELECT image FROM user_table WHERE user_name = ?`,
-  [user_name],
+  `SELECT * FROM user_login WHERE user_name = ? AND password=?`,
+  [user_name,pwd],
   async (err, result) => {
     if (err) console.log("err found:", err);
-    console.log(result);
+
+console.log(result);
   
+let id = result[0].id;
+let first_name = result[0].first_name
+let last_name=result[0].last_name
+console.log('the id is,'+ id);
 
-    image = path.join("images", "uploads", result[0].image.toString());
-
-    console.log(image);
-res.render("dashboard.ejs", { pwd, user_name, email, image });
-res.end();
-  });
+if (result==""){
+  return res.status(402).render('login');
+  
+}
+else{
+  let email=result[0].email;
+  let image=path.join("images","uploads",result[0].image.toString());
+  res.render('dashboard',{first_name,last_name,pwd,user_name,email,image,id});
+}
 });
+});
+app.post('/update/:id', (req, res) => {
+  let id=req.params.id
+  console.log(id);
 
+  console.log(req.body);
+  let first_name = req.body.first_name;
+  let last_name = req.body.last_name;
+  let email = req.body.email;
+  let pwd = req.body.pwd;
+  let user_name = req.body.uname;
+  let image=req.body.image;
+  
+ connection.query(
+  `UPDATE  user_login SET password = ?,user_name =?,email=? WHERE id = ?`,
+  [pwd,user_name, email,id],
+  (err, result) => {
+  if (err) console.log("error found:", err);
+  
+  req.url = ``
+  res.redirect(`http://localhost:${PORT}/login.html`)
+})
+})
+  
+// app.get('/delete/:id', (req, res) => {
 
-
-app.listen(3000,()=>{
-console.log('Server running on port 3000');
+//   let id = req.params.id
+//   let sql = `DELETE FROM user_login WHERE id = ?`
+//   connection.query(sql, [id], (err, result) => {
+//     if (err) console.log(err);
+//     res.redirect('/') 
+//   })
+// })
+app.listen(PORT,()=>{
+console.log(`server running on port ${PORT}`);
 })
 
 
