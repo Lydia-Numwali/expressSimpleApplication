@@ -4,7 +4,7 @@ const ejs=require('ejs');
 const bodyParser=require('body-parser');
 const app=express();
 const mysql = require('mysql');
-const PORT = 8080;
+const PORT = 5000;
 const multer = require("multer");
 const { diskStorage } = require("multer");
 
@@ -128,16 +128,16 @@ app.post('/update/:id', (req, res) => {
   res.redirect(`http://localhost:${PORT}/login.html`)
 })
 })
-  
-// app.get('/delete/:id', (req, res) => {
+app.get('/delete_acc/:id', (req, res) => {
 
-//   let id = req.params.id
-//   let sql = `DELETE FROM user_login WHERE id = ?`
-//   connection.query(sql, [id], (err, result) => {
-//     if (err) console.log(err);
-//     res.redirect('/') 
-//   })
-// })
+  let id = req.params.id
+  let sql = `DELETE FROM user_login WHERE id = ?`
+  connection.query(sql, [id], (err, result) => {
+    if (err) console.log(err);
+    res.redirect('/')
+  })
+}) 
+
 app.listen(PORT,()=>{
 console.log(`server running on port ${PORT}`);
 })

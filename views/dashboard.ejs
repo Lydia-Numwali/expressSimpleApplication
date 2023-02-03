@@ -71,6 +71,18 @@
             margin-top: 2rem;
             cursor: pointer;
         }
+        #delete{
+            background-color: #4d648d;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            border: none;
+            margin-top: 2rem;
+            cursor: pointer;
+            position: absolute;
+            left:430px;
+            top:509px;
+        }
     </style>
 </head>
 
@@ -89,8 +101,7 @@
 
             <div class="input__container">
                 <label for="email">Update your email:</label>
-                <input type="email" name="email" id="email" value='<%=email%>'
-               readonly  style="cursor:not-allowed">
+                <input type="email" name="email" id="email" value='<%=email%>'>
             </div>
             <div class="input__container">
                 <label for="uname">Update your username:</label>
@@ -103,8 +114,18 @@
             <div class="input__container">
                 <input type="submit" value="update">
             </div>
+            <div class="input__container">
+                <input type="button" value="delete" id="delete">
+            </div>
         </form>
     </main>
 </body>
+<script>
+     let delBtn = document.querySelector("#delete")
+    delBtn.addEventListener('click',()=>{
+        window.location.host = 'localhost'
+        window.location.pathname = "delete_acc/<%=id%>"
+    });
+</script>
 
 </html>
